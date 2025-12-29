@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_task_board" model="ir.actions.act_window">
+        <field name="name">Tableaux de Tâches</field>
+        <field name="res_model">task.board</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_task_board_root" name="Tableaux de Tâches" sequence="10"/>
+    <menuitem id="menu_task_board" name="Tableaux" parent="menu_task_board_root" action="action_task_board" sequence="10"/>
+
+    <record id="view_task_board_tree" model="ir.ui.view">
+        <field name="name">task.board.list</field>
+        <field name="model">task.board</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="todo_count"/>
+                <field name="in_progress_count"/>
+                <field name="done_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_task_board_form" model="ir.ui.view">
+        <field name="name">task.board.form</field>
+        <field name="model">task.board</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="user_ids" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Tâches">
+                            <field name="task_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="assigned_to"/>
+                                    <field name="state"/>
+                                    <field name="deadline"/>
+                                    <field name="priority"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

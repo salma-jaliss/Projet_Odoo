@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_task_task" model="ir.actions.act_window">
+        <field name="name">Tâches</field>
+        <field name="res_model">task.task</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <menuitem id="menu_task_task" name="Tâches" parent="menu_task_board_root" action="action_task_task" sequence="20"/>
+
+    <record id="view_task_task_kanban" model="ir.ui.view">
+        <field name="name">task.task.kanban</field>
+        <field name="model">task.task</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/></strong>
+                                <div><field name="assigned_to"/></div>
+                                <div><field name="deadline"/></div>
+                                <div><field name="priority"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_task_task_tree" model="ir.ui.view">
+        <field name="name">task.task.list</field>
+        <field name="model">task.task</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="assigned_to"/>
+                <field name="state"/>
+                <field name="deadline"/>
+                <field name="priority"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_task_task_form" model="ir.ui.view">
+        <field name="name">task.task.form</field>
+        <field name="model">task.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_mark_done" string="Marquer comme Terminé" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="board_id"/>
+                        <field name="assigned_to"/>
+                        <field name="state"/>
+                        <field name="deadline"/>
+                        <field name="priority"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>
